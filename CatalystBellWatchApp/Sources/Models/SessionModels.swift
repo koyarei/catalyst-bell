@@ -121,11 +121,33 @@ enum HapticPattern: String, CaseIterable, Identifiable {
     var interval: TimeInterval {
         switch self {
         case .gentle:
+            return 5
+        case .slowBreath:
+            return 6
+        case .steady:
+            return 4
+        }
+    }
+
+    var pulsesPerCycle: Int {
+        switch self {
+        case .gentle:
             return 4
         case .slowBreath:
             return 6
         case .steady:
-            return 3
+            return 5
+        }
+    }
+
+    var pulseSpacing: TimeInterval {
+        switch self {
+        case .gentle:
+            return 0.24
+        case .slowBreath:
+            return 0.32
+        case .steady:
+            return 0.2
         }
     }
 }

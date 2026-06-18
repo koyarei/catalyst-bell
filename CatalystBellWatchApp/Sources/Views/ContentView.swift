@@ -8,7 +8,7 @@ struct ContentView: View {
         case .starting, .active, .stopping, .saving:
             CatalystSessionView()
         case .ended, .interrupted:
-            DarkIdleView()
+            HomeView()
         case .idle:
             HomeView()
         }

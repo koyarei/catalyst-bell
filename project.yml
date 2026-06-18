@@ -1,6 +1,6 @@
 name: CatalystBell
 options:
-  bundleIdPrefix: com.sizhanshi
+  bundleIdPrefix: com.koyarei.catalystbell.dev20260618
   deploymentTarget:
     watchOS: "11.0"
 settings:
@@ -8,7 +8,7 @@ settings:
     CURRENT_PROJECT_VERSION: 1
     MARKETING_VERSION: 0.1.0
     SWIFT_VERSION: 5.9
-    DEVELOPMENT_TEAM: ""
+    DEVELOPMENT_TEAM: 5B2PZ9NDQB
 targets:
   CatalystBellWatchApp:
     type: application
@@ -27,7 +27,7 @@ targets:
       path: CatalystBellWatchApp/Info.plist
       properties:
         WKApplication: true
-        WKAppBundleIdentifier: com.sizhanshi.CatalystBellWatchApp
+        WKAppBundleIdentifier: com.koyarei.catalystbell.dev20260618
         WKWatchOnly: true
         CFBundleDisplayName: Catalyst Bell
         CFBundleShortVersionString: $(MARKETING_VERSION)
@@ -39,7 +39,8 @@ targets:
       base:
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: 0.1.0
-        PRODUCT_BUNDLE_IDENTIFIER: com.sizhanshi.CatalystBellWatchApp
+        DEVELOPMENT_TEAM: 5B2PZ9NDQB
+        PRODUCT_BUNDLE_IDENTIFIER: com.koyarei.catalystbell.dev20260618
         GENERATE_INFOPLIST_FILE: false
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
   CatalystBellComplication:
@@ -62,7 +63,8 @@ targets:
       base:
         CURRENT_PROJECT_VERSION: 1
         MARKETING_VERSION: 0.1.0
-        PRODUCT_BUNDLE_IDENTIFIER: com.sizhanshi.CatalystBellWatchApp.Complication
+        DEVELOPMENT_TEAM: 5B2PZ9NDQB
+        PRODUCT_BUNDLE_IDENTIFIER: com.koyarei.catalystbell.dev20260618.widgets
         GENERATE_INFOPLIST_FILE: false
   CatalystBellWatchAppTests:
     type: bundle.unit-test
@@ -74,4 +76,5 @@ targets:
       - target: CatalystBellWatchApp
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.sizhanshi.CatalystBellWatchAppTests
+        DEVELOPMENT_TEAM: 5B2PZ9NDQB
+        PRODUCT_BUNDLE_IDENTIFIER: com.koyarei.catalystbell.dev20260618.tests

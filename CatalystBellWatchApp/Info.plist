@@ -23,14 +23,14 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Catalyst Bell uses your approximate location only when saving a grounding session, if you enable location logging.</string>
 	<key>WKAppBundleIdentifier</key>
-	<string>com.sizhanshi.CatalystBellWatchApp</string>
+	<string>com.koyarei.catalystbell.dev20260618</string>
 	<key>WKApplication</key>
-	<true/>
-	<key>WKWatchOnly</key>
 	<true/>
 	<key>WKBackgroundModes</key>
 	<array>
 		<string>self-care</string>
 	</array>
+	<key>WKWatchOnly</key>
+	<true/>
 </dict>
 </plist>

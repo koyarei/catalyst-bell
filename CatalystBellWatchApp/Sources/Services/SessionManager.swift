@@ -121,7 +121,7 @@ final class SessionManager: NSObject, ObservableObject {
         records = await store.loadRecords()
         currentDraft = nil
         isStopping = false
-        state = reason == .runtimeExpired || reason == .systemInterrupted ? .interrupted : .ended
+        state = .idle
     }
 
     private func scheduleMaxDurationTimer() {

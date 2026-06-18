@@ -253,13 +253,13 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					6A235ECBD1923EB22207DE00 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 5B2PZ9NDQB;
 					};
 					B91476C3A2081A3EF54AA862 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 5B2PZ9NDQB;
 					};
 					CBBC660B6BDAF245B4C8FCB7 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 5B2PZ9NDQB;
 					};
 				};
 			};
@@ -354,12 +354,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koyarei.catalystbell.dev20260618.tests;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -404,7 +405,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -432,6 +433,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CatalystBellComplication/CatalystBellComplication.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CatalystBellComplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -440,7 +442,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp.Complication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koyarei.catalystbell.dev20260618.widgets;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -484,7 +486,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -520,10 +522,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CatalystBellWatchApp/CatalystBellWatchApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CatalystBellWatchApp/Info.plist;
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koyarei.catalystbell.dev20260618;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -535,12 +538,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchAppTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koyarei.catalystbell.dev20260618.tests;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -554,6 +558,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = CatalystBellComplication/CatalystBellComplication.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CatalystBellComplication/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -562,7 +567,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp.Complication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koyarei.catalystbell.dev20260618.widgets;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -576,10 +581,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CatalystBellWatchApp/CatalystBellWatchApp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5B2PZ9NDQB;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = CatalystBellWatchApp/Info.plist;
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.koyarei.catalystbell.dev20260618;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
