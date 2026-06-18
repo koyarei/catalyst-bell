@@ -1,0 +1,77 @@
+name: CatalystBell
+options:
+  bundleIdPrefix: com.sizhanshi
+  deploymentTarget:
+    watchOS: "11.0"
+settings:
+  base:
+    CURRENT_PROJECT_VERSION: 1
+    MARKETING_VERSION: 0.1.0
+    SWIFT_VERSION: 5.9
+    DEVELOPMENT_TEAM: ""
+targets:
+  CatalystBellWatchApp:
+    type: application
+    platform: watchOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: CatalystBellWatchApp/Sources
+    resources:
+      - path: CatalystBellWatchApp/Sources/Resources
+    dependencies:
+      - target: CatalystBellComplication
+        embed: true
+    entitlements:
+      path: CatalystBellWatchApp/CatalystBellWatchApp.entitlements
+    info:
+      path: CatalystBellWatchApp/Info.plist
+      properties:
+        WKApplication: true
+        WKAppBundleIdentifier: com.sizhanshi.CatalystBellWatchApp
+        WKWatchOnly: true
+        CFBundleDisplayName: Catalyst Bell
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSLocationWhenInUseUsageDescription: Catalyst Bell uses your approximate location only when saving a grounding session, if you enable location logging.
+        WKBackgroundModes:
+          - self-care
+    settings:
+      base:
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.1.0
+        PRODUCT_BUNDLE_IDENTIFIER: com.sizhanshi.CatalystBellWatchApp
+        GENERATE_INFOPLIST_FILE: false
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+  CatalystBellComplication:
+    type: app-extension
+    platform: watchOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: CatalystBellComplication/Sources
+    entitlements:
+      path: CatalystBellComplication/CatalystBellComplication.entitlements
+    info:
+      path: CatalystBellComplication/Info.plist
+      properties:
+        CFBundleDisplayName: Catalyst Bell
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        CURRENT_PROJECT_VERSION: 1
+        MARKETING_VERSION: 0.1.0
+        PRODUCT_BUNDLE_IDENTIFIER: com.sizhanshi.CatalystBellWatchApp.Complication
+        GENERATE_INFOPLIST_FILE: false
+  CatalystBellWatchAppTests:
+    type: bundle.unit-test
+    platform: watchOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: CatalystBellWatchAppTests
+    dependencies:
+      - target: CatalystBellWatchApp
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.sizhanshi.CatalystBellWatchAppTests

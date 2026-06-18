@@ -1,0 +1,632 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0C0AC70CA87C363D4782D04A /* MoonPhaseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF47F05EAA2DADE178044C8 /* MoonPhaseCalculator.swift */; };
+		0DE502971D0B450BDF5A5CE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9AD81B0382F19BB5F28CB0 /* ContentView.swift */; };
+		343686816C7254A479BB12B9 /* MoonPhaseCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */; };
+		3956C3EE7DA37837EEC4AA96 /* CatalystSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AAD2D6FA3D44C616B3ECC /* CatalystSessionView.swift */; };
+		3AF9FE22D86D14C96F7549C8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71294BAB5A2101711B2EDE05 /* HistoryView.swift */; };
+		4ABA8AC618DC11CF7ED275BA /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF548EB1C461B7ACFB132F /* LocationProvider.swift */; };
+		4E9BD30C02FB442D46E76F8F /* SessionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E1A3EAD6D4CFD0806DD01C /* SessionModels.swift */; };
+		5AE27856D82E130720878AEB /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803ABBC485C31296A8B70AC /* SessionManager.swift */; };
+		8248E49DA8B4FDB3D2510FA5 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF7B8356A9FABD246059DFA /* SessionStore.swift */; };
+		8F699DE7BB1B195728EF5890 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781AEC2B528ED7CE5C85BA33 /* HomeView.swift */; };
+		93CB1D66B377D267D933451C /* CatalystBellComplication.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B405F3AB6592A48CAB0782EC /* CatalystBellComplication.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9E0A33368E37355F49BC4FAA /* SessionStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43695206272999CD557D956C /* SessionStoreTests.swift */; };
+		AAD8036C65D966101363F02C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 43B56EEC3CBA215FE9C96D7B /* PrivacyInfo.xcprivacy */; };
+		AE740A734745B4857CC6F56A /* DarkIdleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDAF4A3D9C93ADB5878F88 /* DarkIdleView.swift */; };
+		BDE2F7522955E613E31DDB4C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CE2DD7D69982EEE5465AE7 /* SettingsView.swift */; };
+		D24597EC1D522DFFB0079D77 /* CatalystBellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFA007E99E9352465F29D4 /* CatalystBellApp.swift */; };
+		D6AC08496D40216CB35FD9B1 /* HapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADF4085CCA7E973088D760 /* HapticEngine.swift */; };
+		EF8F26BCBD86D2744C810096 /* SessionRecordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19844AED1169088C92B8430 /* SessionRecordTests.swift */; };
+		F177B3C5EF1B806B4D1B80AB /* CatalystBellComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A033ADDBADF29663CA3A0F80 /* CatalystBellComplication.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		029FE8EFAE201DF736B23895 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D2142563AAC1240BDC0427C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A235ECBD1923EB22207DE00;
+			remoteInfo = CatalystBellComplication;
+		};
+		78FCFDBA0A9737F62996A1FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D2142563AAC1240BDC0427C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B91476C3A2081A3EF54AA862;
+			remoteInfo = CatalystBellWatchApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A3A5150C0E7620B5B296C4EE /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				93CB1D66B377D267D933451C /* CatalystBellComplication.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1FF7B8356A9FABD246059DFA /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		43695206272999CD557D956C /* SessionStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStoreTests.swift; sourceTree = "<group>"; };
+		43B56EEC3CBA215FE9C96D7B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		47CF548EB1C461B7ACFB132F /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
+		60E1A3EAD6D4CFD0806DD01C /* SessionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModels.swift; sourceTree = "<group>"; };
+		71294BAB5A2101711B2EDE05 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		781AEC2B528ED7CE5C85BA33 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseCalculatorTests.swift; sourceTree = "<group>"; };
+		7A9AD81B0382F19BB5F28CB0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A033ADDBADF29663CA3A0F80 /* CatalystBellComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystBellComplication.swift; sourceTree = "<group>"; };
+		A803ABBC485C31296A8B70AC /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		AD6A910E49D48BAABBD4B724 /* CatalystBellWatchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatalystBellWatchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFFFA007E99E9352465F29D4 /* CatalystBellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystBellApp.swift; sourceTree = "<group>"; };
+		B405F3AB6592A48CAB0782EC /* CatalystBellComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CatalystBellComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF7AAD2D6FA3D44C616B3ECC /* CatalystSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystSessionView.swift; sourceTree = "<group>"; };
+		C0EDAF4A3D9C93ADB5878F88 /* DarkIdleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkIdleView.swift; sourceTree = "<group>"; };
+		CCF47F05EAA2DADE178044C8 /* MoonPhaseCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseCalculator.swift; sourceTree = "<group>"; };
+		CEADF4085CCA7E973088D760 /* HapticEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticEngine.swift; sourceTree = "<group>"; };
+		CF31D000409C5DB47EA7A3DB /* CatalystBellWatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatalystBellWatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3CE2DD7D69982EEE5465AE7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F19844AED1169088C92B8430 /* SessionRecordTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecordTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2979820EBCBAEB5170F17AC9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				43B56EEC3CBA215FE9C96D7B /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		29A1CA5C9830A495331B4843 /* CatalystBellWatchAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */,
+				F19844AED1169088C92B8430 /* SessionRecordTests.swift */,
+				43695206272999CD557D956C /* SessionStoreTests.swift */,
+			);
+			path = CatalystBellWatchAppTests;
+			sourceTree = "<group>";
+		};
+		4E9DFC6A105687FD0A88AA95 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A033ADDBADF29663CA3A0F80 /* CatalystBellComplication.swift */,
+			);
+			name = Sources;
+			path = CatalystBellComplication/Sources;
+			sourceTree = "<group>";
+		};
+		62BFAB2F08FB7B4B3ABBFC9E = {
+			isa = PBXGroup;
+			children = (
+				29A1CA5C9830A495331B4843 /* CatalystBellWatchAppTests */,
+				4E9DFC6A105687FD0A88AA95 /* Sources */,
+				D68574EF8254B0EF81228429 /* Sources */,
+				8941CC31E797CB19BAA66E3F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6923ABB8F5BC2C2EE32F25E4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF7AAD2D6FA3D44C616B3ECC /* CatalystSessionView.swift */,
+				7A9AD81B0382F19BB5F28CB0 /* ContentView.swift */,
+				C0EDAF4A3D9C93ADB5878F88 /* DarkIdleView.swift */,
+				71294BAB5A2101711B2EDE05 /* HistoryView.swift */,
+				781AEC2B528ED7CE5C85BA33 /* HomeView.swift */,
+				E3CE2DD7D69982EEE5465AE7 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		80BBFBAB0B9D252F5AB38560 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CEADF4085CCA7E973088D760 /* HapticEngine.swift */,
+				47CF548EB1C461B7ACFB132F /* LocationProvider.swift */,
+				CCF47F05EAA2DADE178044C8 /* MoonPhaseCalculator.swift */,
+				A803ABBC485C31296A8B70AC /* SessionManager.swift */,
+				1FF7B8356A9FABD246059DFA /* SessionStore.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8941CC31E797CB19BAA66E3F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B405F3AB6592A48CAB0782EC /* CatalystBellComplication.appex */,
+				CF31D000409C5DB47EA7A3DB /* CatalystBellWatchApp.app */,
+				AD6A910E49D48BAABBD4B724 /* CatalystBellWatchAppTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C1F8B82C70225AB9D65BA11A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AFFFA007E99E9352465F29D4 /* CatalystBellApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CAC0E391FD426F9123E2695E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				60E1A3EAD6D4CFD0806DD01C /* SessionModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D68574EF8254B0EF81228429 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				C1F8B82C70225AB9D65BA11A /* App */,
+				CAC0E391FD426F9123E2695E /* Models */,
+				2979820EBCBAEB5170F17AC9 /* Resources */,
+				80BBFBAB0B9D252F5AB38560 /* Services */,
+				6923ABB8F5BC2C2EE32F25E4 /* Views */,
+			);
+			name = Sources;
+			path = CatalystBellWatchApp/Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6A235ECBD1923EB22207DE00 /* CatalystBellComplication */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 72D7BAA11F82E9613556B6E1 /* Build configuration list for PBXNativeTarget "CatalystBellComplication" */;
+			buildPhases = (
+				9A3F07CE098369B618E4A99E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CatalystBellComplication;
+			packageProductDependencies = (
+			);
+			productName = CatalystBellComplication;
+			productReference = B405F3AB6592A48CAB0782EC /* CatalystBellComplication.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B91476C3A2081A3EF54AA862 /* CatalystBellWatchApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA40195263FC2972B70D4596 /* Build configuration list for PBXNativeTarget "CatalystBellWatchApp" */;
+			buildPhases = (
+				77DF8571DE26EF0B72FA8120 /* Sources */,
+				1BF4D793BF8700E0804A7D3D /* Resources */,
+				A3A5150C0E7620B5B296C4EE /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4CE16E98B14543B8BA36379D /* PBXTargetDependency */,
+			);
+			name = CatalystBellWatchApp;
+			packageProductDependencies = (
+			);
+			productName = CatalystBellWatchApp;
+			productReference = CF31D000409C5DB47EA7A3DB /* CatalystBellWatchApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CBBC660B6BDAF245B4C8FCB7 /* CatalystBellWatchAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94F2A9F240C1390A9295266E /* Build configuration list for PBXNativeTarget "CatalystBellWatchAppTests" */;
+			buildPhases = (
+				326C7E7E70A08E7891FFE98E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D05FD52C7FA63EE6388B3DA2 /* PBXTargetDependency */,
+			);
+			name = CatalystBellWatchAppTests;
+			packageProductDependencies = (
+			);
+			productName = CatalystBellWatchAppTests;
+			productReference = AD6A910E49D48BAABBD4B724 /* CatalystBellWatchAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2D2142563AAC1240BDC0427C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					6A235ECBD1923EB22207DE00 = {
+						DevelopmentTeam = "";
+					};
+					B91476C3A2081A3EF54AA862 = {
+						DevelopmentTeam = "";
+					};
+					CBBC660B6BDAF245B4C8FCB7 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = C8DAA4BDB8708DF5599789A3 /* Build configuration list for PBXProject "CatalystBell" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 62BFAB2F08FB7B4B3ABBFC9E;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8941CC31E797CB19BAA66E3F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A235ECBD1923EB22207DE00 /* CatalystBellComplication */,
+				B91476C3A2081A3EF54AA862 /* CatalystBellWatchApp */,
+				CBBC660B6BDAF245B4C8FCB7 /* CatalystBellWatchAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1BF4D793BF8700E0804A7D3D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAD8036C65D966101363F02C /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		326C7E7E70A08E7891FFE98E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				343686816C7254A479BB12B9 /* MoonPhaseCalculatorTests.swift in Sources */,
+				EF8F26BCBD86D2744C810096 /* SessionRecordTests.swift in Sources */,
+				9E0A33368E37355F49BC4FAA /* SessionStoreTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		77DF8571DE26EF0B72FA8120 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D24597EC1D522DFFB0079D77 /* CatalystBellApp.swift in Sources */,
+				3956C3EE7DA37837EEC4AA96 /* CatalystSessionView.swift in Sources */,
+				0DE502971D0B450BDF5A5CE3 /* ContentView.swift in Sources */,
+				AE740A734745B4857CC6F56A /* DarkIdleView.swift in Sources */,
+				D6AC08496D40216CB35FD9B1 /* HapticEngine.swift in Sources */,
+				3AF9FE22D86D14C96F7549C8 /* HistoryView.swift in Sources */,
+				8F699DE7BB1B195728EF5890 /* HomeView.swift in Sources */,
+				4ABA8AC618DC11CF7ED275BA /* LocationProvider.swift in Sources */,
+				0C0AC70CA87C363D4782D04A /* MoonPhaseCalculator.swift in Sources */,
+				5AE27856D82E130720878AEB /* SessionManager.swift in Sources */,
+				4E9BD30C02FB442D46E76F8F /* SessionModels.swift in Sources */,
+				8248E49DA8B4FDB3D2510FA5 /* SessionStore.swift in Sources */,
+				BDE2F7522955E613E31DDB4C /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A3F07CE098369B618E4A99E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F177B3C5EF1B806B4D1B80AB /* CatalystBellComplication.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4CE16E98B14543B8BA36379D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A235ECBD1923EB22207DE00 /* CatalystBellComplication */;
+			targetProxy = 029FE8EFAE201DF736B23895 /* PBXContainerItemProxy */;
+		};
+		D05FD52C7FA63EE6388B3DA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B91476C3A2081A3EF54AA862 /* CatalystBellWatchApp */;
+			targetProxy = 78FCFDBA0A9737F62996A1FE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1BD94F89C8D3D271D7531B07 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchAppTests;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CatalystBellWatchApp.app/CatalystBellWatchApp";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		3248999C522ED8DDF8EB76BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		883A7CC8D3E904C33767B980 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CatalystBellComplication/CatalystBellComplication.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CatalystBellComplication/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp.Complication;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		962C03B88FD07714A01304BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+		D14025FA0222F160C2A24133 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CatalystBellWatchApp/CatalystBellWatchApp.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CatalystBellWatchApp/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		E235E3D36683C8E04C3C8BBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchAppTests;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CatalystBellWatchApp.app/CatalystBellWatchApp";
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		E7FEF3A902A555C0FD129027 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = CatalystBellComplication/CatalystBellComplication.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CatalystBellComplication/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp.Complication;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Release;
+		};
+		FA92579CAE09656B42D504F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CatalystBellWatchApp/CatalystBellWatchApp.entitlements;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CatalystBellWatchApp/Info.plist;
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sizhanshi.CatalystBellWatchApp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		72D7BAA11F82E9613556B6E1 /* Build configuration list for PBXNativeTarget "CatalystBellComplication" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				883A7CC8D3E904C33767B980 /* Debug */,
+				E7FEF3A902A555C0FD129027 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		94F2A9F240C1390A9295266E /* Build configuration list for PBXNativeTarget "CatalystBellWatchAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1BD94F89C8D3D271D7531B07 /* Debug */,
+				E235E3D36683C8E04C3C8BBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C8DAA4BDB8708DF5599789A3 /* Build configuration list for PBXProject "CatalystBell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				962C03B88FD07714A01304BE /* Debug */,
+				3248999C522ED8DDF8EB76BE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FA40195263FC2972B70D4596 /* Build configuration list for PBXNativeTarget "CatalystBellWatchApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA92579CAE09656B42D504F3 /* Debug */,
+				D14025FA0222F160C2A24133 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2D2142563AAC1240BDC0427C /* Project object */;
+}
