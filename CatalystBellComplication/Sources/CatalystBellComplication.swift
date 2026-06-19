@@ -21,16 +21,12 @@ struct CatalystBellProvider: TimelineProvider {
 
 struct CatalystBellComplicationView: View {
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(.black)
-            Circle()
-                .stroke(.white.opacity(0.75), lineWidth: 2)
-                .padding(5)
-            Circle()
-                .fill(.white.opacity(0.85))
-                .frame(width: 5, height: 5)
-        }
+        Image("ComplicationBellSilhouette")
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .foregroundStyle(.white)
+            .padding(5)
         .containerBackground(.black, for: .widget)
         .widgetURL(URL(string: "catalystbell://start?source=complication"))
     }

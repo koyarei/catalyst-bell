@@ -10,6 +10,7 @@
 		0C0AC70CA87C363D4782D04A /* MoonPhaseCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF47F05EAA2DADE178044C8 /* MoonPhaseCalculator.swift */; };
 		0DE502971D0B450BDF5A5CE3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9AD81B0382F19BB5F28CB0 /* ContentView.swift */; };
 		343686816C7254A479BB12B9 /* MoonPhaseCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */; };
+		357D57188A7CB2E8A15DEF61 /* ComplicationAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3E9AF4C8D9C8DDF7D00BC05 /* ComplicationAssets.xcassets */; };
 		3956C3EE7DA37837EEC4AA96 /* CatalystSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7AAD2D6FA3D44C616B3ECC /* CatalystSessionView.swift */; };
 		3AF9FE22D86D14C96F7549C8 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71294BAB5A2101711B2EDE05 /* HistoryView.swift */; };
 		4ABA8AC618DC11CF7ED275BA /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CF548EB1C461B7ACFB132F /* LocationProvider.swift */; };
@@ -22,6 +23,7 @@
 		AAD8036C65D966101363F02C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 43B56EEC3CBA215FE9C96D7B /* PrivacyInfo.xcprivacy */; };
 		AE740A734745B4857CC6F56A /* DarkIdleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDAF4A3D9C93ADB5878F88 /* DarkIdleView.swift */; };
 		BDE2F7522955E613E31DDB4C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3CE2DD7D69982EEE5465AE7 /* SettingsView.swift */; };
+		CD8B3DE8403B0C31D6760BED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38272C24FC5C1081B51A387 /* Assets.xcassets */; };
 		D24597EC1D522DFFB0079D77 /* CatalystBellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFA007E99E9352465F29D4 /* CatalystBellApp.swift */; };
 		D6AC08496D40216CB35FD9B1 /* HapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADF4085CCA7E973088D760 /* HapticEngine.swift */; };
 		EF8F26BCBD86D2744C810096 /* SessionRecordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19844AED1169088C92B8430 /* SessionRecordTests.swift */; };
@@ -70,9 +72,11 @@
 		7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseCalculatorTests.swift; sourceTree = "<group>"; };
 		7A9AD81B0382F19BB5F28CB0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A033ADDBADF29663CA3A0F80 /* CatalystBellComplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystBellComplication.swift; sourceTree = "<group>"; };
+		A38272C24FC5C1081B51A387 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A803ABBC485C31296A8B70AC /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		AD6A910E49D48BAABBD4B724 /* CatalystBellWatchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatalystBellWatchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFFFA007E99E9352465F29D4 /* CatalystBellApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystBellApp.swift; sourceTree = "<group>"; };
+		B3E9AF4C8D9C8DDF7D00BC05 /* ComplicationAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ComplicationAssets.xcassets; sourceTree = "<group>"; };
 		B405F3AB6592A48CAB0782EC /* CatalystBellComplication.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CatalystBellComplication.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF7AAD2D6FA3D44C616B3ECC /* CatalystSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalystSessionView.swift; sourceTree = "<group>"; };
 		C0EDAF4A3D9C93ADB5878F88 /* DarkIdleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkIdleView.swift; sourceTree = "<group>"; };
@@ -87,6 +91,7 @@
 		2979820EBCBAEB5170F17AC9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A38272C24FC5C1081B51A387 /* Assets.xcassets */,
 				43B56EEC3CBA215FE9C96D7B /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
@@ -106,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				A033ADDBADF29663CA3A0F80 /* CatalystBellComplication.swift */,
+				B3E9AF4C8D9C8DDF7D00BC05 /* ComplicationAssets.xcassets */,
 			);
 			name = Sources;
 			path = CatalystBellComplication/Sources;
@@ -193,6 +199,7 @@
 			buildConfigurationList = 72D7BAA11F82E9613556B6E1 /* Build configuration list for PBXNativeTarget "CatalystBellComplication" */;
 			buildPhases = (
 				9A3F07CE098369B618E4A99E /* Sources */,
+				2889EE02C27DF3C9C9303B34 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -289,7 +296,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD8B3DE8403B0C31D6760BED /* Assets.xcassets in Resources */,
 				AAD8036C65D966101363F02C /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2889EE02C27DF3C9C9303B34 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				357D57188A7CB2E8A15DEF61 /* ComplicationAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
