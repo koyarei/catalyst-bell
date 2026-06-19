@@ -6,11 +6,19 @@ struct SettingsView: View {
     var body: some View {
         Form {
             Section("Haptics") {
-                Picker("Pattern", selection: $sessionManager.hapticPattern) {
-                    ForEach(HapticPattern.allCases) { pattern in
-                        Text(pattern.displayName).tag(pattern)
+                Picker("Clicks per Pulse", selection: $sessionManager.clicksPerPulse) {
+                    ForEach(SessionManager.clicksPerPulseChoices, id: \.self) { count in
+                        Text("\(count)").tag(count)
                     }
                 }
+
+                Picker("Pulses per Minute", selection: $sessionManager.pulsesPerMinute) {
+                    ForEach(SessionManager.pulsesPerMinuteChoices, id: \.self) { count in
+                        Text("\(count)").tag(count)
+                    }
+                }
+
+                Text("More pulses per minute means a shorter gap between pulse trains.")
 
                 Picker("Max Duration", selection: $sessionManager.maxDurationMinutes) {
                     Text("2 min").tag(2.0)

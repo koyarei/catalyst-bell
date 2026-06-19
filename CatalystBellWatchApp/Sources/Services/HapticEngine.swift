@@ -5,16 +5,16 @@ import WatchKit
 final class HapticEngine {
     private var timer: Timer?
     private var pulseTimers: [Timer] = []
-    private var pattern: HapticPattern = .gentle
+    private let pulseSpacing: TimeInterval = 0.12
 
-    func start(pattern: HapticPattern) {
+    func start(clicksPerPulse: Int, pulsesPerMinute: Int) {
         stop()
-        self.pattern = pattern
-        playPulseTrain(pattern: pattern, firstPulse: .start)
+        playPulseTrain(clicksPerPulse: clicksPerPulse, firstPulse: .start)
 
-        timer = Timer.scheduledTimer(withTimeInterval: pattern.interval, repeats: true) { _ in
+        let repeatInterval = 60.0 / Double(pulsesPerMinute)
+        timer = Timer.scheduledTimer(withTimeInterval: repeatInterval, repeats: true) { _ in
             Task { @MainActor in
-                self.playPulseTrain(pattern: pattern, firstPulse: .directionUp)
+                self.playPulseTrain(clicksPerPulse: clicksPerPulse, firstPulse: .directionUp)
             }
         }
     }
@@ -26,14 +26,14 @@ final class HapticEngine {
         pulseTimers.removeAll()
     }
 
-    private func playPulseTrain(pattern: HapticPattern, firstPulse: WKHapticType) {
+    private func playPulseTrain(clicksPerPulse: Int, firstPulse: WKHapticType) {
         pulseTimers.forEach { $0.invalidate() }
         pulseTimers.removeAll()
 
         WKInterfaceDevice.current().play(firstPulse)
 
-        for pulseIndex in 1..<pattern.pulsesPerCycle {
-            let delay = pattern.pulseSpacing * Double(pulseIndex)
+        for pulseIndex in 1..<clicksPerPulse {
+            let delay = pulseSpacing * Double(pulseIndex)
             let pulseTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { _ in
                 WKInterfaceDevice.current().play(.directionUp)
             }

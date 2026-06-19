@@ -10,9 +10,14 @@ final class SessionManager: NSObject, ObservableObject {
             UserDefaults.standard.set(locationLoggingEnabled, forKey: Self.locationLoggingKey)
         }
     }
-    @Published var hapticPattern: HapticPattern {
+    @Published var clicksPerPulse: Int {
         didSet {
-            UserDefaults.standard.set(hapticPattern.rawValue, forKey: Self.hapticPatternKey)
+            UserDefaults.standard.set(clicksPerPulse, forKey: Self.clicksPerPulseKey)
+        }
+    }
+    @Published var pulsesPerMinute: Int {
+        didSet {
+            UserDefaults.standard.set(pulsesPerMinute, forKey: Self.pulsesPerMinuteKey)
         }
     }
     @Published var maxDurationMinutes: Double {
@@ -22,8 +27,11 @@ final class SessionManager: NSObject, ObservableObject {
     }
 
     private static let locationLoggingKey = "locationLoggingEnabled"
-    private static let hapticPatternKey = "hapticPattern"
+    private static let clicksPerPulseKey = "clicksPerPulse"
+    private static let pulsesPerMinuteKey = "pulsesPerMinute"
     private static let maxDurationKey = "maxDurationMinutes"
+    static let clicksPerPulseChoices = Array(1...8)
+    static let pulsesPerMinuteChoices = [6, 8, 10, 12, 15, 20]
 
     private let store: SessionStoring
     private let hapticEngine: HapticEngine
@@ -42,7 +50,8 @@ final class SessionManager: NSObject, ObservableObject {
         self.hapticEngine = hapticEngine ?? HapticEngine()
         self.locationProvider = locationProvider ?? LocationProvider()
         locationLoggingEnabled = UserDefaults.standard.bool(forKey: Self.locationLoggingKey)
-        hapticPattern = HapticPattern(rawValue: UserDefaults.standard.string(forKey: Self.hapticPatternKey) ?? "") ?? .gentle
+        clicksPerPulse = Self.savedInt(forKey: Self.clicksPerPulseKey, defaultValue: 6, choices: Self.clicksPerPulseChoices)
+        pulsesPerMinute = Self.savedInt(forKey: Self.pulsesPerMinuteKey, defaultValue: 15, choices: Self.pulsesPerMinuteChoices)
 
         let savedMaxDuration = UserDefaults.standard.double(forKey: Self.maxDurationKey)
         maxDurationMinutes = savedMaxDuration > 0 ? savedMaxDuration : 10
@@ -62,7 +71,7 @@ final class SessionManager: NSObject, ObservableObject {
         state = .starting
         currentDraft = SessionDraft(launchSource: launchSource)
         startExtendedRuntimeSession()
-        hapticEngine.start(pattern: hapticPattern)
+        hapticEngine.start(clicksPerPulse: clicksPerPulse, pulsesPerMinute: pulsesPerMinute)
         scheduleMaxDurationTimer()
         state = .active
     }
@@ -139,6 +148,18 @@ final class SessionManager: NSObject, ObservableObject {
         session.delegate = self
         runtimeSession = session
         session.start()
+    }
+
+    private static func savedInt(forKey key: String, defaultValue: Int, choices: [Int]) -> Int {
+        guard UserDefaults.standard.object(forKey: key) != nil else {
+            return defaultValue
+        }
+
+        return nearestValidChoice(UserDefaults.standard.integer(forKey: key), in: choices)
+    }
+
+    private static func nearestValidChoice(_ value: Int, in choices: [Int]) -> Int {
+        choices.min { abs($0 - value) < abs($1 - value) } ?? value
     }
 }
 
