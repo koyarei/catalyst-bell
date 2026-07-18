@@ -26,6 +26,7 @@
 		CD8B3DE8403B0C31D6760BED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38272C24FC5C1081B51A387 /* Assets.xcassets */; };
 		D24597EC1D522DFFB0079D77 /* CatalystBellApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFFFA007E99E9352465F29D4 /* CatalystBellApp.swift */; };
 		D6AC08496D40216CB35FD9B1 /* HapticEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEADF4085CCA7E973088D760 /* HapticEngine.swift */; };
+		E4B705C6CFC4E8A94A4C3F68 /* HapticEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B53920D564BB42660CE37E4 /* HapticEngineTests.swift */; };
 		EF8F26BCBD86D2744C810096 /* SessionRecordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19844AED1169088C92B8430 /* SessionRecordTests.swift */; };
 		F177B3C5EF1B806B4D1B80AB /* CatalystBellComplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A033ADDBADF29663CA3A0F80 /* CatalystBellComplication.swift */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		43B56EEC3CBA215FE9C96D7B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		47CF548EB1C461B7ACFB132F /* LocationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationProvider.swift; sourceTree = "<group>"; };
 		60E1A3EAD6D4CFD0806DD01C /* SessionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionModels.swift; sourceTree = "<group>"; };
+		6B53920D564BB42660CE37E4 /* HapticEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticEngineTests.swift; sourceTree = "<group>"; };
 		71294BAB5A2101711B2EDE05 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		781AEC2B528ED7CE5C85BA33 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonPhaseCalculatorTests.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		29A1CA5C9830A495331B4843 /* CatalystBellWatchAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				6B53920D564BB42660CE37E4 /* HapticEngineTests.swift */,
 				7993CAA1403272703D59E6E0 /* MoonPhaseCalculatorTests.swift */,
 				F19844AED1169088C92B8430 /* SessionRecordTests.swift */,
 				43695206272999CD557D956C /* SessionStoreTests.swift */,
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4B705C6CFC4E8A94A4C3F68 /* HapticEngineTests.swift in Sources */,
 				343686816C7254A479BB12B9 /* MoonPhaseCalculatorTests.swift in Sources */,
 				EF8F26BCBD86D2744C810096 /* SessionRecordTests.swift in Sources */,
 				9E0A33368E37355F49BC4FAA /* SessionStoreTests.swift in Sources */,

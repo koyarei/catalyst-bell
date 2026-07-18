@@ -10,6 +10,65 @@ final class SessionManager: NSObject, ObservableObject {
             UserDefaults.standard.set(locationLoggingEnabled, forKey: Self.locationLoggingKey)
         }
     }
+    @Published var pulseStyle: PulseStyle {
+        didSet {
+            UserDefaults.standard.set(pulseStyle.rawValue, forKey: hapticSettingsKeys.pulseStyle)
+        }
+    }
+    @Published var pulseSpacingStyle: PulseSpacingStyle {
+        didSet {
+            UserDefaults.standard.set(pulseSpacingStyle.rawValue, forKey: hapticSettingsKeys.spacingStyle)
+        }
+    }
+    @Published var steadyHapticChoice: HapticChoice {
+        didSet {
+            UserDefaults.standard.set(steadyHapticChoice.rawValue, forKey: hapticSettingsKeys.steadyChoice)
+        }
+    }
+    @Published var selectedHapticChoices: Set<HapticChoice> {
+        didSet {
+            if selectedHapticChoices.isEmpty {
+                selectedHapticChoices = [.click]
+                return
+            }
+            let savedValues = HapticChoice.allCases
+                .filter(selectedHapticChoices.contains)
+                .map(\.rawValue)
+            UserDefaults.standard.set(savedValues, forKey: hapticSettingsKeys.selectedChoices)
+        }
+    }
+    @Published var minimumVariedGap: Double {
+        didSet {
+            let clamped = HapticSettings.clampedGap(
+                minimumVariedGap,
+                fallback: HapticSettings.defaultMinimumGap
+            )
+            if clamped != minimumVariedGap {
+                minimumVariedGap = clamped
+                return
+            }
+            if minimumVariedGap > maximumVariedGap {
+                maximumVariedGap = minimumVariedGap
+            }
+            persistGapRange()
+        }
+    }
+    @Published var maximumVariedGap: Double {
+        didSet {
+            let clamped = HapticSettings.clampedGap(
+                maximumVariedGap,
+                fallback: HapticSettings.defaultMaximumGap
+            )
+            if clamped != maximumVariedGap {
+                maximumVariedGap = clamped
+                return
+            }
+            if maximumVariedGap < minimumVariedGap {
+                minimumVariedGap = maximumVariedGap
+            }
+            persistGapRange()
+        }
+    }
     @Published var clicksPerPulse: Int {
         didSet {
             UserDefaults.standard.set(clicksPerPulse, forKey: Self.clicksPerPulseKey)
@@ -27,6 +86,7 @@ final class SessionManager: NSObject, ObservableObject {
     }
 
     private static let locationLoggingKey = "locationLoggingEnabled"
+    private let hapticSettingsKeys = HapticSettings.Keys()
     private static let clicksPerPulseKey = "clicksPerPulse"
     private static let pulsesPerMinuteKey = "pulsesPerMinute"
     private static let maxDurationKey = "maxDurationMinutes"
@@ -50,6 +110,13 @@ final class SessionManager: NSObject, ObservableObject {
         self.hapticEngine = hapticEngine ?? HapticEngine()
         self.locationProvider = locationProvider ?? LocationProvider()
         locationLoggingEnabled = UserDefaults.standard.bool(forKey: Self.locationLoggingKey)
+        let hapticSettings = HapticSettings.load(from: .standard)
+        pulseStyle = hapticSettings.pulseStyle
+        pulseSpacingStyle = hapticSettings.spacingStyle
+        steadyHapticChoice = hapticSettings.steadyChoice
+        selectedHapticChoices = hapticSettings.selectedChoices
+        minimumVariedGap = hapticSettings.minimumGap
+        maximumVariedGap = hapticSettings.maximumGap
         clicksPerPulse = Self.savedInt(forKey: Self.clicksPerPulseKey, defaultValue: 6, choices: Self.clicksPerPulseChoices)
         pulsesPerMinute = Self.savedInt(forKey: Self.pulsesPerMinuteKey, defaultValue: 15, choices: Self.pulsesPerMinuteChoices)
 
@@ -71,7 +138,19 @@ final class SessionManager: NSObject, ObservableObject {
         state = .starting
         currentDraft = SessionDraft(launchSource: launchSource)
         startExtendedRuntimeSession()
-        hapticEngine.start(clicksPerPulse: clicksPerPulse, pulsesPerMinute: pulsesPerMinute)
+        let settingsSnapshot = HapticSettings(
+            pulseStyle: pulseStyle,
+            spacingStyle: pulseSpacingStyle,
+            steadyChoice: steadyHapticChoice,
+            selectedChoices: selectedHapticChoices,
+            minimumGap: minimumVariedGap,
+            maximumGap: maximumVariedGap
+        )
+        hapticEngine.start(configuration: HapticSessionConfiguration(
+            settings: settingsSnapshot,
+            hitsPerPulse: clicksPerPulse,
+            pulsesPerMinute: pulsesPerMinute
+        ))
         scheduleMaxDurationTimer()
         state = .active
     }
@@ -105,6 +184,10 @@ final class SessionManager: NSObject, ObservableObject {
 
     func requestLocationPermission() {
         locationProvider.requestPermission()
+    }
+
+    func previewHaptic(_ choice: HapticChoice) {
+        hapticEngine.preview(choice)
     }
 
     private func save(draft: SessionDraft, reason: EndReason) async {
@@ -160,6 +243,11 @@ final class SessionManager: NSObject, ObservableObject {
 
     private static func nearestValidChoice(_ value: Int, in choices: [Int]) -> Int {
         choices.min { abs($0 - value) < abs($1 - value) } ?? value
+    }
+
+    private func persistGapRange() {
+        UserDefaults.standard.set(minimumVariedGap, forKey: hapticSettingsKeys.minimumGap)
+        UserDefaults.standard.set(maximumVariedGap, forKey: hapticSettingsKeys.maximumGap)
     }
 }
 
