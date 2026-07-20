@@ -90,7 +90,7 @@ final class SessionManager: NSObject, ObservableObject {
     private static let clicksPerPulseKey = "clicksPerPulse"
     private static let pulsesPerMinuteKey = "pulsesPerMinute"
     private static let maxDurationKey = "maxDurationMinutes"
-    static let clicksPerPulseChoices = Array(1...8)
+    static let clicksPerPulseChoices = Array(1...12)
     static let pulsesPerMinuteChoices = [6, 8, 10, 12, 15, 20]
 
     private let store: SessionStoring

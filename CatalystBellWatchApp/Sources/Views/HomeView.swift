@@ -5,17 +5,25 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 10) {
-                Button("Start") {
-                    sessionManager.start(launchSource: .appIcon)
-                }
-                .buttonStyle(.borderedProminent)
+            ZStack {
+                StillRainPalette.background
+                    .ignoresSafeArea()
 
-                NavigationLink("Settings") {
-                    SettingsView()
+                VStack(spacing: 10) {
+                    Button("Start") {
+                        sessionManager.start(launchSource: .appIcon)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(StillRainPalette.primaryButton)
+
+                    NavigationLink("Settings") {
+                        SettingsView()
+                    }
+                    .buttonStyle(.bordered)
+                    .tint(StillRainPalette.accent)
                 }
+                .padding(.horizontal, 6)
             }
-            .navigationTitle("Catalyst Bell")
         }
     }
 }

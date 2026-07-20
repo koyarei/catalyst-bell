@@ -130,9 +130,10 @@ struct SettingsView: View {
             Spacer()
             if previewedChoice == choice {
                 Image(systemName: "waveform")
-                    .foregroundStyle(.green)
+                    .foregroundStyle(StillRainPalette.accent)
             } else if isSelected {
                 Image(systemName: "checkmark")
+                    .foregroundStyle(StillRainPalette.accent)
             }
         }
         .contentShape(Rectangle())

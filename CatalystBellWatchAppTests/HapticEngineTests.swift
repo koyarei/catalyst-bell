@@ -41,7 +41,7 @@ final class HapticSettingsTests: XCTestCase {
 
         let settings = HapticSettings.load(from: defaults)
 
-        XCTAssertEqual(settings.minimumGap, 2.0)
+        XCTAssertEqual(settings.minimumGap, 1.0)
         XCTAssertEqual(settings.maximumGap, 10.0)
     }
 

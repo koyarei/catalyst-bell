@@ -74,7 +74,7 @@ enum HapticChoice: String, Codable, CaseIterable, Identifiable {
 struct HapticSettings: Equatable {
     static let defaultVariedChoices: Set<HapticChoice> = [.success, .directionUp, .directionDown]
     static let defaultSteadyChoice: HapticChoice = .directionUp
-    static let allowedGapRange = 2.0...10.0
+    static let allowedGapRange = 1.0...10.0
     static let defaultMinimumGap = 3.5
     static let defaultMaximumGap = 5.0
 

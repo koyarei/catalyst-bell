@@ -8,6 +8,7 @@ struct CatalystBellApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(sessionManager)
+                .tint(StillRainPalette.accent)
                 .onOpenURL { url in
                     guard url.scheme == "catalystbell" else {
                         return
