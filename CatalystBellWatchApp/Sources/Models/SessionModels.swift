@@ -1,6 +1,47 @@
 import Foundation
 import WatchKit
 
+enum ActiveVisualStyle: String, CaseIterable, Codable, Identifiable {
+    case stillRain
+    case dark
+
+    var id: String { rawValue }
+
+    var displayName: String {
+        switch self {
+        case .stillRain:
+            return "Still Rain"
+        case .dark:
+            return "Dark"
+        }
+    }
+}
+
+struct HapticVisualEvent: Identifiable, Equatable {
+    let id: UUID
+    let pulseID: UUID
+    let hitIndex: Int
+    let hapticType: WKHapticType
+    let occurredAt: Date
+    let positionSeed: UInt64
+
+    init(
+        id: UUID = UUID(),
+        pulseID: UUID,
+        hitIndex: Int,
+        hapticType: WKHapticType,
+        occurredAt: Date = Date(),
+        positionSeed: UInt64
+    ) {
+        self.id = id
+        self.pulseID = pulseID
+        self.hitIndex = hitIndex
+        self.hapticType = hapticType
+        self.occurredAt = occurredAt
+        self.positionSeed = positionSeed
+    }
+}
+
 enum PulseStyle: String, Codable, CaseIterable, Identifiable {
     case steady
     case varied

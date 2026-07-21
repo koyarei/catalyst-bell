@@ -5,6 +5,12 @@ import WatchKit
 final class SessionManager: NSObject, ObservableObject {
     @Published private(set) var state: SessionState = .idle
     @Published private(set) var records: [SessionRecord] = []
+    @Published private(set) var hapticVisualEvents: [HapticVisualEvent] = []
+    @Published var activeVisualStyle: ActiveVisualStyle {
+        didSet {
+            UserDefaults.standard.set(activeVisualStyle.rawValue, forKey: Self.activeVisualStyleKey)
+        }
+    }
     @Published var locationLoggingEnabled: Bool {
         didSet {
             UserDefaults.standard.set(locationLoggingEnabled, forKey: Self.locationLoggingKey)
@@ -86,6 +92,8 @@ final class SessionManager: NSObject, ObservableObject {
     }
 
     private static let locationLoggingKey = "locationLoggingEnabled"
+    private static let activeVisualStyleKey = "activeVisualStyle"
+    private static let visualEventBufferLimit = 16
     private let hapticSettingsKeys = HapticSettings.Keys()
     private static let clicksPerPulseKey = "clicksPerPulse"
     private static let pulsesPerMinuteKey = "pulsesPerMinute"
@@ -109,6 +117,8 @@ final class SessionManager: NSObject, ObservableObject {
         self.store = store
         self.hapticEngine = hapticEngine ?? HapticEngine()
         self.locationProvider = locationProvider ?? LocationProvider()
+        activeVisualStyle = UserDefaults.standard.string(forKey: Self.activeVisualStyleKey)
+            .flatMap(ActiveVisualStyle.init(rawValue:)) ?? .stillRain
         locationLoggingEnabled = UserDefaults.standard.bool(forKey: Self.locationLoggingKey)
         let hapticSettings = HapticSettings.load(from: .standard)
         pulseStyle = hapticSettings.pulseStyle
@@ -124,6 +134,10 @@ final class SessionManager: NSObject, ObservableObject {
         maxDurationMinutes = savedMaxDuration > 0 ? savedMaxDuration : 10
         super.init()
 
+        self.hapticEngine.visualEventHandler = { [weak self] event in
+            self?.recordVisualEvent(event)
+        }
+
         Task {
             records = await store.loadRecords()
         }
@@ -135,6 +149,7 @@ final class SessionManager: NSObject, ObservableObject {
         }
 
         isStopping = false
+        hapticVisualEvents.removeAll()
         state = .starting
         currentDraft = SessionDraft(launchSource: launchSource)
         startExtendedRuntimeSession()
@@ -167,6 +182,7 @@ final class SessionManager: NSObject, ObservableObject {
         isStopping = true
         state = reason == .runtimeExpired || reason == .systemInterrupted ? .interrupted : .stopping
         hapticEngine.stop()
+        hapticVisualEvents.removeAll()
         maxDurationTimer?.invalidate()
         maxDurationTimer = nil
         runtimeSession?.invalidate()
@@ -248,6 +264,14 @@ final class SessionManager: NSObject, ObservableObject {
     private func persistGapRange() {
         UserDefaults.standard.set(minimumVariedGap, forKey: hapticSettingsKeys.minimumGap)
         UserDefaults.standard.set(maximumVariedGap, forKey: hapticSettingsKeys.maximumGap)
+    }
+
+    private func recordVisualEvent(_ event: HapticVisualEvent) {
+        guard state == .starting || state == .active else { return }
+        hapticVisualEvents.append(event)
+        if hapticVisualEvents.count > Self.visualEventBufferLimit {
+            hapticVisualEvents.removeFirst(hapticVisualEvents.count - Self.visualEventBufferLimit)
+        }
     }
 }
 

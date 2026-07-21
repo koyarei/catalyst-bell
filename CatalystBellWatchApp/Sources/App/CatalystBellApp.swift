@@ -6,7 +6,17 @@ struct CatalystBellApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                #if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--debug-rain-surface") {
+                    RainSurfaceDebugHarness()
+                } else {
+                    ContentView()
+                }
+                #else
+                ContentView()
+                #endif
+            }
                 .environmentObject(sessionManager)
                 .tint(StillRainPalette.accent)
                 .onOpenURL { url in

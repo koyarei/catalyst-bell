@@ -8,6 +8,14 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
+            Section("Active Screen") {
+                Picker("Visual", selection: $sessionManager.activeVisualStyle) {
+                    ForEach(ActiveVisualStyle.allCases) { style in
+                        Text(style.displayName).tag(style)
+                    }
+                }
+            }
+
             Section("Haptics") {
                 Picker("Pulse Style", selection: $sessionManager.pulseStyle) {
                     ForEach(PulseStyle.allCases) { style in

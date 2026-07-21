@@ -140,6 +140,18 @@ final class HapticEngineTests: XCTestCase {
         }
     }
 
+    func testEveryScheduledPlayEmitsOneMatchingVisualEvent() {
+        let harness = Harness()
+        harness.engine.start(configuration: configuration(choice: .directionDown, hits: 3))
+        harness.scheduler.fireTasks(at: [0.12, 0.24])
+
+        XCTAssertEqual(harness.visualEvents.count, harness.played.count)
+        XCTAssertEqual(harness.visualEvents.map(\.hapticType), harness.played)
+        XCTAssertEqual(harness.visualEvents.map(\.hitIndex), [0, 1, 2])
+        XCTAssertEqual(Set(harness.visualEvents.map(\.pulseID)).count, 1)
+        XCTAssertEqual(Set(harness.visualEvents.map(\.positionSeed)), [42])
+    }
+
     func testVariedGapIsClampedToConfiguredRange() {
         let harness = Harness(randomGap: { _ in 100 })
         harness.engine.start(configuration: configuration(
@@ -228,12 +240,18 @@ final class HapticEngineTests: XCTestCase {
 private final class Harness {
     let scheduler = TestHapticScheduler()
     var played: [WKHapticType] = []
-    lazy var engine = HapticEngine(
-        scheduler: scheduler,
-        playHaptic: { [weak self] in self?.played.append($0) },
-        randomGap: randomGap,
-        shuffle: shuffle
-    )
+    var visualEvents: [HapticVisualEvent] = []
+    lazy var engine: HapticEngine = {
+        let engine = HapticEngine(
+            scheduler: scheduler,
+            playHaptic: { [weak self] in self?.played.append($0) },
+            randomGap: randomGap,
+            shuffle: shuffle,
+            positionSeed: { 42 }
+        )
+        engine.visualEventHandler = { [weak self] in self?.visualEvents.append($0) }
+        return engine
+    }()
     private let randomGap: HapticEngine.RandomGap
     private let shuffle: HapticShuffleBag.Shuffle
 

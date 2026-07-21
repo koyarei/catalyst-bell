@@ -78,6 +78,9 @@ struct HapticShuffleBag {
 @MainActor
 final class HapticEngine {
     typealias RandomGap = (ClosedRange<TimeInterval>) -> TimeInterval
+    typealias PositionSeed = () -> UInt64
+
+    var visualEventHandler: ((HapticVisualEvent) -> Void)?
 
     private var pulseTask: HapticScheduledTask?
     private var hitTasks: [HapticScheduledTask] = []
@@ -86,6 +89,7 @@ final class HapticEngine {
     private let playHaptic: (WKHapticType) -> Void
     private let randomGap: RandomGap
     private let shuffle: HapticShuffleBag.Shuffle
+    private let positionSeed: PositionSeed
     private var configuration: HapticSessionConfiguration?
     private var shuffleBag: HapticShuffleBag?
     private var generation = 0
@@ -95,12 +99,14 @@ final class HapticEngine {
         scheduler: HapticScheduling? = nil,
         playHaptic: @escaping (WKHapticType) -> Void = { WKInterfaceDevice.current().play($0) },
         randomGap: @escaping RandomGap = { Double.random(in: $0) },
-        shuffle: @escaping HapticShuffleBag.Shuffle = { $0.shuffle() }
+        shuffle: @escaping HapticShuffleBag.Shuffle = { $0.shuffle() },
+        positionSeed: @escaping PositionSeed = { UInt64.random(in: .min ... .max) }
     ) {
         self.scheduler = scheduler ?? TimerHapticScheduler()
         self.playHaptic = playHaptic
         self.randomGap = randomGap
         self.shuffle = shuffle
+        self.positionSeed = positionSeed
     }
 
     func start(configuration: HapticSessionConfiguration) {
@@ -146,14 +152,23 @@ final class HapticEngine {
         guard isCurrent(generation: generation), let configuration else { return 0 }
         hitTasks.forEach { $0.cancel() }
         hitTasks.removeAll()
+        let pulseID = UUID()
+        let pulsePositionSeed = positionSeed()
 
         if configuration.settings.pulseStyle == .steady {
             let choice = configuration.settings.steadyChoice
             let eventCount = choice.honorsHitsPerPulse ? configuration.hitsPerPulse : 1
-            playHaptic(choice.hapticType)
+            playScheduledHit(
+                choice.hapticType,
+                pulseID: pulseID,
+                hitIndex: 0,
+                positionSeed: pulsePositionSeed
+            )
             scheduleAdditionalHits(
                 count: eventCount - 1,
                 hapticType: choice.hapticType,
+                pulseID: pulseID,
+                positionSeed: pulsePositionSeed,
                 generation: generation
             )
             return pulseSpacing * Double(max(0, eventCount - 1))
@@ -163,22 +178,40 @@ final class HapticEngine {
         let choice = bag.next()
         shuffleBag = bag
         let eventCount = choice.honorsHitsPerPulse ? configuration.hitsPerPulse : 1
-        playHaptic(choice.hapticType)
+        playScheduledHit(
+            choice.hapticType,
+            pulseID: pulseID,
+            hitIndex: 0,
+            positionSeed: pulsePositionSeed
+        )
         scheduleAdditionalHits(
             count: eventCount - 1,
             hapticType: choice.hapticType,
+            pulseID: pulseID,
+            positionSeed: pulsePositionSeed,
             generation: generation
         )
         return pulseSpacing * Double(max(0, eventCount - 1))
     }
 
-    private func scheduleAdditionalHits(count: Int, hapticType: WKHapticType, generation: Int) {
+    private func scheduleAdditionalHits(
+        count: Int,
+        hapticType: WKHapticType,
+        pulseID: UUID,
+        positionSeed: UInt64,
+        generation: Int
+    ) {
         guard count > 0 else { return }
 
         for hitIndex in 1...count {
             let task = scheduler.schedule(after: pulseSpacing * Double(hitIndex), repeats: false) { [weak self] in
                 guard let self, self.isCurrent(generation: generation) else { return }
-                self.playHaptic(hapticType)
+                self.playScheduledHit(
+                    hapticType,
+                    pulseID: pulseID,
+                    hitIndex: hitIndex,
+                    positionSeed: positionSeed
+                )
             }
             hitTasks.append(task)
         }
@@ -198,5 +231,20 @@ final class HapticEngine {
 
     private func isCurrent(generation: Int) -> Bool {
         isActive && self.generation == generation
+    }
+
+    private func playScheduledHit(
+        _ hapticType: WKHapticType,
+        pulseID: UUID,
+        hitIndex: Int,
+        positionSeed: UInt64
+    ) {
+        playHaptic(hapticType)
+        visualEventHandler?(HapticVisualEvent(
+            pulseID: pulseID,
+            hitIndex: hitIndex,
+            hapticType: hapticType,
+            positionSeed: positionSeed
+        ))
     }
 }
