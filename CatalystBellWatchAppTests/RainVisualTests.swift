@@ -46,7 +46,6 @@ final class RainParticleStoreTests: XCTestCase {
         store.consume(
             events,
             visualStyle: .stillRain,
-            isLuminanceReduced: false,
             reduceMotion: false,
             now: now
         )
@@ -61,7 +60,6 @@ final class RainParticleStoreTests: XCTestCase {
         store.consume(
             [event(date: now)],
             visualStyle: .stillRain,
-            isLuminanceReduced: false,
             reduceMotion: false,
             now: now
         )
@@ -78,7 +76,6 @@ final class RainParticleStoreTests: XCTestCase {
         store.consume(
             [event(date: now)],
             visualStyle: .dark,
-            isLuminanceReduced: false,
             reduceMotion: false,
             now: now
         )
@@ -86,26 +83,20 @@ final class RainParticleStoreTests: XCTestCase {
         XCTAssertTrue(store.particles.isEmpty)
     }
 
-    func testReducedLuminanceSuppressesEventsWithoutReplayingThem() {
+    func testLatestParticleRemainsAvailableForAlwaysOnPresentation() {
         let store = RainParticleStore()
         let now = Date()
-        let suppressedEvent = event(date: now)
+        let latestEvent = event(date: now)
         store.consume(
-            [suppressedEvent],
+            [latestEvent],
             visualStyle: .stillRain,
-            isLuminanceReduced: true,
             reduceMotion: false,
             now: now
         )
-        store.consume(
-            [suppressedEvent],
-            visualStyle: .stillRain,
-            isLuminanceReduced: false,
-            reduceMotion: false,
-            now: now
-        )
+        store.clearParticles()
 
         XCTAssertTrue(store.particles.isEmpty)
+        XCTAssertEqual(store.latestParticle?.id, latestEvent.id)
     }
 
     private func event(
@@ -119,6 +110,66 @@ final class RainParticleStoreTests: XCTestCase {
             hapticType: .click,
             occurredAt: date,
             positionSeed: seed
+        )
+    }
+}
+
+final class RainVisualIntensityTests: XCTestCase {
+    func testIntensityClampsToSupportedCrownRange() {
+        XCTAssertEqual(RainVisualIntensity.clamped(-0.4), 0)
+        XCTAssertEqual(RainVisualIntensity.clamped(0.65), 0.65)
+        XCTAssertEqual(RainVisualIntensity.clamped(1.4), 1)
+    }
+
+    func testZeroIntensityProducesTrueBlackAndInvisibleRipples() {
+        XCTAssertEqual(RainVisualIntensity.surfaceOpacity(for: 0), 0)
+        XCTAssertEqual(RainVisualIntensity.rippleOpacityMultiplier(for: 0), 0)
+    }
+
+    func testDefaultIntensityPreservesOriginalAppearance() {
+        XCTAssertEqual(
+            RainVisualIntensity.surfaceOpacity(for: RainVisualIntensity.defaultValue),
+            1
+        )
+        XCTAssertEqual(
+            RainVisualIntensity.rippleOpacityMultiplier(for: RainVisualIntensity.defaultValue),
+            1
+        )
+    }
+
+    func testMaximumIntensityStrengthensRipples() {
+        XCTAssertEqual(
+            RainVisualIntensity.rippleOpacityMultiplier(for: 1),
+            RainVisualIntensity.maximumRippleOpacityMultiplier
+        )
+    }
+
+    func testUpperHalfProvidesAdditionalContrastBeyondOriginalMaximum() {
+        XCTAssertGreaterThan(
+            RainVisualIntensity.rippleOpacityMultiplier(for: 0.75),
+            2
+        )
+    }
+
+    func testDefaultIntensityKeepsOriginalStrokeAndNoGlow() {
+        XCTAssertEqual(
+            RainVisualIntensity.lineWidthMultiplier(for: RainVisualIntensity.defaultValue),
+            1
+        )
+        XCTAssertEqual(
+            RainVisualIntensity.glowStrength(for: RainVisualIntensity.defaultValue),
+            0
+        )
+    }
+
+    func testMaximumIntensityUsesThickerStrokeAndGlow() {
+        XCTAssertEqual(
+            RainVisualIntensity.lineWidthMultiplier(for: 1),
+            RainVisualIntensity.maximumLineWidthMultiplier
+        )
+        XCTAssertEqual(
+            RainVisualIntensity.glowStrength(for: 1),
+            RainVisualIntensity.maximumGlowStrength
         )
     }
 }

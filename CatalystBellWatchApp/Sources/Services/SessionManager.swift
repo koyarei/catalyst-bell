@@ -11,6 +11,15 @@ final class SessionManager: NSObject, ObservableObject {
             UserDefaults.standard.set(activeVisualStyle.rawValue, forKey: Self.activeVisualStyleKey)
         }
     }
+    @Published var visualIntensity: Double {
+        didSet {
+            let clamped = RainVisualIntensity.clamped(visualIntensity)
+            if clamped != visualIntensity {
+                visualIntensity = clamped
+            }
+            UserDefaults.standard.set(clamped, forKey: Self.visualIntensityKey)
+        }
+    }
     @Published var locationLoggingEnabled: Bool {
         didSet {
             UserDefaults.standard.set(locationLoggingEnabled, forKey: Self.locationLoggingKey)
@@ -93,6 +102,7 @@ final class SessionManager: NSObject, ObservableObject {
 
     private static let locationLoggingKey = "locationLoggingEnabled"
     private static let activeVisualStyleKey = "activeVisualStyle"
+    private static let visualIntensityKey = "visualIntensity"
     private static let visualEventBufferLimit = 16
     private let hapticSettingsKeys = HapticSettings.Keys()
     private static let clicksPerPulseKey = "clicksPerPulse"
@@ -119,6 +129,11 @@ final class SessionManager: NSObject, ObservableObject {
         self.locationProvider = locationProvider ?? LocationProvider()
         activeVisualStyle = UserDefaults.standard.string(forKey: Self.activeVisualStyleKey)
             .flatMap(ActiveVisualStyle.init(rawValue:)) ?? .stillRain
+        visualIntensity = UserDefaults.standard.object(forKey: Self.visualIntensityKey) == nil
+            ? RainVisualIntensity.defaultValue
+            : RainVisualIntensity.clamped(
+                UserDefaults.standard.double(forKey: Self.visualIntensityKey)
+            )
         locationLoggingEnabled = UserDefaults.standard.bool(forKey: Self.locationLoggingKey)
         let hapticSettings = HapticSettings.load(from: .standard)
         pulseStyle = hapticSettings.pulseStyle

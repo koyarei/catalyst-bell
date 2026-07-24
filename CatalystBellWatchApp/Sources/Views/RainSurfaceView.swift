@@ -3,11 +3,78 @@ import WatchKit
 
 enum RainVisualTuning {
     static let surfaceColor = Color(red: 0.018, green: 0.035, blue: 0.045)
-    static let rippleColor = Color(red: 0.62, green: 0.78, blue: 0.81)
+    static let rippleColor = RainRipplePalette.skyBlue
     static let maximumParticleCount = 4
     static let reducedMotionLifetime: TimeInterval = 0.46
     static let impactPointLifetime: TimeInterval = 0.24
     static let minimumFrameInterval: TimeInterval = 1.0 / 30.0
+}
+
+enum RainRipplePalette {
+    static let skyBlue = Color(red: 0.52, green: 0.76, blue: 0.96)
+    static let deepBlue = Color(red: 0.34, green: 0.66, blue: 1.0)
+    static let teal = Color(red: 0.30, green: 0.84, blue: 0.80)
+    static let mint = Color(red: 0.42, green: 0.92, blue: 0.64)
+
+    static func color(for style: RippleStyle, ringIndex: Int = 0) -> Color {
+        if style == .directionUp {
+            return deepBlue
+        }
+        if style == .directionDown {
+            return teal
+        }
+        if style == .success {
+            return ringIndex == 0 ? skyBlue : mint
+        }
+        return skyBlue
+    }
+}
+
+enum RainVisualIntensity {
+    static let range = 0.0...1.0
+    static let defaultValue = 0.5
+    static let crownStep = 0.05
+    static let maximumRippleOpacityMultiplier = 3.5
+    static let maximumLineWidthMultiplier = 2.75
+    static let maximumGlowStrength = 0.46
+
+    static func clamped(_ value: Double) -> Double {
+        min(max(value, range.lowerBound), range.upperBound)
+    }
+
+    static func surfaceOpacity(for intensity: Double) -> Double {
+        min(clamped(intensity) * 2, 1)
+    }
+
+    static func rippleOpacityMultiplier(for intensity: Double) -> Double {
+        let intensity = clamped(intensity)
+        guard intensity > defaultValue else {
+            return intensity / defaultValue
+        }
+
+        let upperRangeProgress = (intensity - defaultValue) / (1 - defaultValue)
+        return 1 + (
+            upperRangeProgress * (maximumRippleOpacityMultiplier - 1)
+        )
+    }
+
+    static func lineWidthMultiplier(for intensity: Double) -> Double {
+        let intensity = clamped(intensity)
+        guard intensity > defaultValue else { return 1 }
+
+        let upperRangeProgress = (intensity - defaultValue) / (1 - defaultValue)
+        return 1 + (
+            upperRangeProgress * (maximumLineWidthMultiplier - 1)
+        )
+    }
+
+    static func glowStrength(for intensity: Double) -> Double {
+        let intensity = clamped(intensity)
+        guard intensity > defaultValue else { return 0 }
+
+        let upperRangeProgress = (intensity - defaultValue) / (1 - defaultValue)
+        return upperRangeProgress * maximumGlowStrength
+    }
 }
 
 struct RippleStyle: Equatable {
@@ -148,6 +215,7 @@ struct RainParticle: Identifiable, Equatable {
 @MainActor
 final class RainParticleStore: ObservableObject {
     @Published private(set) var particles: [RainParticle] = []
+    @Published private(set) var latestParticle: RainParticle?
 
     private var seenEventIDs: Set<UUID> = []
     private var seenEventOrder: [UUID] = []
@@ -161,13 +229,12 @@ final class RainParticleStore: ObservableObject {
     func consume(
         _ events: [HapticVisualEvent],
         visualStyle: ActiveVisualStyle,
-        isLuminanceReduced: Bool,
         reduceMotion: Bool,
         now: Date = Date()
     ) {
         for event in events where !seenEventIDs.contains(event.id) {
             markSeen(event.id)
-            guard visualStyle == .stillRain, !isLuminanceReduced else { continue }
+            guard visualStyle == .stillRain else { continue }
 
             var position = RainPositionGenerator.normalizedPosition(
                 seed: event.positionSeed,
@@ -186,6 +253,7 @@ final class RainParticleStore: ObservableObject {
                 startedAt: event.occurredAt,
                 usesReducedMotion: reduceMotion
             )
+            latestParticle = particle
             guard now.timeIntervalSince(particle.startedAt) < particle.totalLifetime else { continue }
             append(particle, now: now)
         }
@@ -199,6 +267,7 @@ final class RainParticleStore: ObservableObject {
 
     func reset() {
         clearParticles()
+        latestParticle = nil
         seenEventIDs.removeAll()
         seenEventOrder.removeAll()
     }
@@ -240,6 +309,7 @@ final class RainParticleStore: ObservableObject {
 struct RainSurfaceView: View {
     let events: [HapticVisualEvent]
     let isSessionActive: Bool
+    let intensity: Double
 
     @Environment(\.isLuminanceReduced) private var isLuminanceReduced
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -247,9 +317,18 @@ struct RainSurfaceView: View {
 
     var body: some View {
         ZStack {
+            Color.black
             RainVisualTuning.surfaceColor
+                .opacity(RainVisualIntensity.surfaceOpacity(for: intensity))
 
-            if !store.particles.isEmpty {
+            // Always On throttles subsecond animation, so hold the newest ripple
+            // as a static, low-power image until the next visual event arrives.
+            if isLuminanceReduced, let latestParticle = store.latestParticle {
+                Canvas { context, size in
+                    drawAlwaysOnParticle(latestParticle, in: size, context: &context)
+                }
+                .allowsHitTesting(false)
+            } else if !store.particles.isEmpty {
                 TimelineView(.animation(
                     minimumInterval: RainVisualTuning.minimumFrameInterval,
                     paused: false
@@ -268,14 +347,8 @@ struct RainSurfaceView: View {
         .onChange(of: events) { _, _ in
             consumeEvents()
         }
-        .onChange(of: isLuminanceReduced) { _, isReduced in
-            if isReduced {
-                store.clearParticles()
-            }
-            consumeEvents()
-        }
         .onChange(of: reduceMotion) { _, _ in
-            store.clearParticles()
+            store.reset()
             consumeEvents()
         }
         .onChange(of: isSessionActive) { _, isActive in
@@ -290,7 +363,6 @@ struct RainSurfaceView: View {
         store.consume(
             events,
             visualStyle: .stillRain,
-            isLuminanceReduced: isLuminanceReduced,
             reduceMotion: reduceMotion
         )
     }
@@ -335,7 +407,11 @@ struct RainSurfaceView: View {
                 + ((style.finalRadius - style.initialRadius) * CGFloat(easedProgress))
             let fadeIn = min(ringElapsed / 0.07, 1)
             let secondaryStrength = ringIndex == 0 ? 1.0 : 0.58
-            let opacity = style.peakOpacity * fadeIn * pow(1 - progress, 0.92) * secondaryStrength
+            let opacity = style.peakOpacity
+                * fadeIn
+                * pow(1 - progress, 0.92)
+                * secondaryStrength
+                * RainVisualIntensity.rippleOpacityMultiplier(for: intensity)
             let drift = style.verticalDrift * CGFloat(progress)
             let rect = CGRect(
                 x: center.x - radius,
@@ -343,16 +419,21 @@ struct RainSurfaceView: View {
                 width: radius * 2,
                 height: radius * 2
             )
-            context.stroke(
+            strokeRipple(
                 Path(ellipseIn: rect),
-                with: .color(RainVisualTuning.rippleColor.opacity(opacity)),
-                lineWidth: style.lineWidth
+                color: RainRipplePalette.color(for: style, ringIndex: ringIndex),
+                opacity: opacity,
+                baseLineWidth: style.lineWidth,
+                context: &context
             )
         }
 
         if elapsed <= RainVisualTuning.impactPointLifetime {
             let progress = elapsed / RainVisualTuning.impactPointLifetime
-            let opacity = style.peakOpacity * 0.9 * (1 - progress)
+            let opacity = style.peakOpacity
+                * 0.9
+                * (1 - progress)
+                * RainVisualIntensity.rippleOpacityMultiplier(for: intensity)
             let radius = style.impactPointRadius
             let rect = CGRect(
                 x: center.x - radius,
@@ -362,7 +443,10 @@ struct RainSurfaceView: View {
             )
             context.fill(
                 Path(ellipseIn: rect),
-                with: .color(RainVisualTuning.rippleColor.opacity(opacity))
+                with: .color(
+                    RainRipplePalette.color(for: style)
+                        .opacity(min(max(opacity, 0), 1))
+                )
             )
         }
     }
@@ -374,7 +458,10 @@ struct RainSurfaceView: View {
         context: inout GraphicsContext
     ) {
         let progress = min(max(elapsed / RainVisualTuning.reducedMotionLifetime, 0), 1)
-        let opacity = particle.style.peakOpacity * 0.72 * sin(.pi * progress)
+        let opacity = particle.style.peakOpacity
+            * 0.72
+            * sin(.pi * progress)
+            * RainVisualIntensity.rippleOpacityMultiplier(for: intensity)
         let radius = particle.style.initialRadius + 2
         let rect = CGRect(
             x: center.x - radius,
@@ -382,10 +469,72 @@ struct RainSurfaceView: View {
             width: radius * 2,
             height: radius * 2
         )
-        context.stroke(
+        strokeRipple(
             Path(ellipseIn: rect),
-            with: .color(RainVisualTuning.rippleColor.opacity(opacity)),
-            lineWidth: particle.style.lineWidth
+            color: RainRipplePalette.color(for: particle.style),
+            opacity: opacity,
+            baseLineWidth: particle.style.lineWidth,
+            context: &context
+        )
+    }
+
+    private func drawAlwaysOnParticle(
+        _ particle: RainParticle,
+        in size: CGSize,
+        context: inout GraphicsContext
+    ) {
+        let center = CGPoint(
+            x: particle.position.x * size.width,
+            y: particle.position.y * size.height
+        )
+        let radius = particle.style.initialRadius
+            + ((particle.style.finalRadius - particle.style.initialRadius) * 0.72)
+        let rect = CGRect(
+            x: center.x - radius,
+            y: center.y - radius,
+            width: radius * 2,
+            height: radius * 2
+        )
+        let opacity = particle.style.peakOpacity
+            * 0.8
+            * RainVisualIntensity.rippleOpacityMultiplier(for: intensity)
+
+        strokeRipple(
+            Path(ellipseIn: rect),
+            color: RainRipplePalette.color(for: particle.style),
+            opacity: opacity,
+            baseLineWidth: particle.style.lineWidth,
+            context: &context
+        )
+    }
+
+    private func strokeRipple(
+        _ path: Path,
+        color: Color,
+        opacity: Double,
+        baseLineWidth: CGFloat,
+        context: inout GraphicsContext
+    ) {
+        let opacity = min(max(opacity, 0), 1)
+        let lineWidth = baseLineWidth
+            * CGFloat(RainVisualIntensity.lineWidthMultiplier(for: intensity))
+        let glowStrength = RainVisualIntensity.glowStrength(for: intensity)
+
+        if glowStrength > 0 {
+            context.drawLayer { glowContext in
+                glowContext.addFilter(.blur(radius: 2.2))
+                glowContext.stroke(
+                    path,
+                    with: .color(color.opacity(opacity * glowStrength)),
+                    lineWidth: lineWidth * 1.9
+                )
+            }
+        }
+
+        context.stroke(
+            path,
+            with: .color(color.opacity(opacity)),
+            lineWidth: lineWidth
         )
     }
 }
@@ -395,7 +544,11 @@ struct RainSurfaceDebugHarness: View {
     @State private var events: [HapticVisualEvent] = []
 
     var body: some View {
-        RainSurfaceView(events: events, isSessionActive: true)
+        RainSurfaceView(
+            events: events,
+            isSessionActive: true,
+            intensity: RainVisualIntensity.defaultValue
+        )
             .ignoresSafeArea()
             .task {
                 guard events.isEmpty else { return }
